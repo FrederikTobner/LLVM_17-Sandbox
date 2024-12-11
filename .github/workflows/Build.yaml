@@ -1,0 +1,42 @@
+name: Build
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ${{matrix.operatingsystems}}
+    env:
+      BUILD_TYPE: ${{matrix.buildtypes}}
+    strategy:
+      matrix:
+        operatingsystems: [ubuntu-latest]
+        buildtypes: [Release]
+    steps:
+    - uses: actions/checkout@v4
+
+    # Schlinux setup    
+    - name: Setup Dependencies under Linux
+      if: runner.os == 'Linux'
+      run: |
+        mkdir -p ~/.cache/apt ~/.local/share/apt
+        sudo apt-get update
+      env:
+        DEBIAN_FRONTEND: noninteractive
+
+    - name: Install Packages cached
+      if: runner.os == 'Linux'
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: cmake ninja-build clang-17 llvm-17 llvm-17-dev
+        version: 1.0
+
+    - name: Configure Cmake under Linux
+      if: runner.os == 'Linux'
+      run: cmake -D CMAKE_C_COMPILER=clang-17 -D CMAKE_CXX_COMPILER=clang-17  -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
+    
+    - name: Building Project
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      
