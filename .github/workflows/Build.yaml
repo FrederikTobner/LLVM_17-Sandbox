@@ -23,15 +23,9 @@ jobs:
       run: |
         mkdir -p ~/.cache/apt ~/.local/share/apt
         sudo apt-get update
+        sudo apt-get install -y clang-17 llvm-17 llvm-17-dev cmake ninja-build
       env:
         DEBIAN_FRONTEND: noninteractive
-
-    - name: Install Packages cached
-      if: runner.os == 'Linux'
-      uses: awalsh128/cache-apt-pkgs-action@latest
-      with:
-        packages: clang-17 llvm-17 llvm-17-dev cmake ninja-build
-        version: 1.0
 
     - name: Configure Cmake under Linux
       if: runner.os == 'Linux'
