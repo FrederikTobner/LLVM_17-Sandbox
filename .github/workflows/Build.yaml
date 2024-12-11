@@ -32,7 +32,7 @@ jobs:
 
     - name: Configure Cmake under Linux
       if: runner.os == 'Linux'
-      run: cmake -D CMAKE_C_COMPILER=clang-17 -D CMAKE_CXX_COMPILER=clang-17  -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
+      run: cmake -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++ -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
     
     - name: Building Project
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
