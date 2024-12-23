@@ -1,12 +1,16 @@
 cmake_minimum_required (VERSION 3.20.0)
 
-project ("calc")
+project ("llvm-sandbox")
 
 find_package(LLVM REQUIRED CONFIG)
 message("Found LLVM ${LLVM_PACKAGE_VERSION}, build type ${LLVM_BUILD_TYPE}")
 list(APPEND CMAKE_MODULE_PATH ${LLVM_DIR})
+
 include(DetermineGCCCompatible)
 include(ChooseMSVCCRT)
+
+include(AddLLVM)
+include(HandleLLVMOptions)
 
 separate_arguments(LLVM_DEFINITIONS_LIST NATIVE_COMMAND ${LLVM_DEFINITIONS})
 add_definitions(${LLVM_DEFINITIONS_LIST})
@@ -23,3 +27,5 @@ if(LLVM_COMPILER_IS_GCC_COMPATIBLE)
 endif()
 
 add_subdirectory(calc)
+
+add_subdirectory(tinylang)

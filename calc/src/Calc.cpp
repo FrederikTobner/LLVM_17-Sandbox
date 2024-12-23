@@ -11,6 +11,10 @@ static llvm::cl::opt<std::string>
           llvm::cl::desc("<input expression>"),
           llvm::cl::init(""));
 
+/// @brief Main entry point of the calc compiler
+/// @param argc Number of command line arguments
+/// @param argv Command line arguments
+/// @return 0 on success, 1 on failure
 int main(int argc, const char **argv) {
   llvm::InitLLVM X(argc, argv);
   llvm::cl::ParseCommandLineOptions(
