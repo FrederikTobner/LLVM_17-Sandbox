@@ -66,6 +66,9 @@ class Parser {
   bool parseBlock(DeclList &Decls, StmtList &Stmts);
   bool parseDeclaration(DeclList &Decls);
   bool parseConstantDeclaration(DeclList &Decls);
+  bool parseTypeDeclaration(DeclList &Decls);
+  bool parseFieldList(FieldList &Fields);
+  bool parseField(FieldList &Fields);
   bool parseVariableDeclaration(DeclList &Decls);
   bool parseProcedureDeclaration(DeclList &ParentDecls);
   bool parseFormalParameters(FormalParamList &Params,
@@ -85,6 +88,7 @@ class Parser {
   bool parseTerm(Expr *&E);
   bool parseMulOperator(OperatorInfo &Op);
   bool parseFactor(Expr *&E);
+  bool parseSelectors(Expr *&E);
   bool parseQualident(Decl *&D);
   bool parseIdentList(IdentList &Ids);
 

@@ -84,6 +84,9 @@ void Lexer::next(Token &Result) {
       CASE(',', tok::comma);
       CASE('.', tok::period);
       CASE(';', tok::semi);
+      CASE('^', tok::caret);
+      CASE('[', tok::l_square);
+      CASE(']', tok::r_square);
       CASE(')', tok::r_paren);
 #undef CASE
     case '(':
@@ -129,6 +132,7 @@ void Lexer::identifier(Token &Result) {
 }
 
 void Lexer::number(Token &Result) {
+  const char *Start = CurPtr;
   const char *End = CurPtr + 1;
   tok::TokenKind Kind = tok::unknown;
   bool IsHex = false;

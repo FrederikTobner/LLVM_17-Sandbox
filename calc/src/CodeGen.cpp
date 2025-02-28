@@ -7,6 +7,8 @@
 using namespace llvm;
 
 namespace {
+/// @brief Visitor class to generate LLVM IR 
+/// @details This class is a visitor for the AST that generates LLVM IR.
 class ToIRVisitor : public ASTVisitor {
   Module *M;
   IRBuilder<> Builder;

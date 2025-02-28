@@ -4,6 +4,8 @@
 #include "AST.h"
 #include "Lexer.h"
 
+/// @brief Semantic analysis class
+/// @details This class performs semantic analysis on the AST
 class Sema {
 public:
   /// @brief Perform semantic analysis
