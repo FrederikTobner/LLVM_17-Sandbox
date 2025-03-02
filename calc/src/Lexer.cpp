@@ -18,8 +18,6 @@ LLVM_READNONE inline bool isLetter(char c) {
 void Lexer::next(Token &token) {
   while (*BufferPtr && charinfo::isWhitespace(*BufferPtr)) {
     ++BufferPtr;
-  }
-  if (!*BufferPtr) {
     token.Kind = Token::eoi;
     return;
   }

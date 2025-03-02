@@ -1,7 +1,10 @@
 #ifndef LEXER_H
 #define LEXER_H
 
+// Contains a C string and its length. Therefor no null terminator is required.
 #include "llvm/ADT/StringRef.h"
+// Provides read-only access to a a block of memory, filled with the contents of a file.
+// On requestm a null-terminator can added to the end of the file.
 #include "llvm/Support/MemoryBuffer.h"
 
 // Forward declaration of the Lexer class
@@ -12,6 +15,7 @@ class Token {
   friend class Lexer;
 
 public:
+  /// @brief Token types of the lexer
   enum TokenKind : unsigned short {
     eoi,        // End of input
     unknown,    // unknown token type
