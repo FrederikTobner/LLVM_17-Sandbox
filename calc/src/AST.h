@@ -1,15 +1,20 @@
 #ifndef AST_H
 #define AST_H
-
+// Includes LLVM's SmallVector class. This class is a vector optimized for small sizes.
 #include "llvm/ADT/SmallVector.h"
+// Includes LLVM's StringRef class. This class is does not require a null terminator.
 #include "llvm/ADT/StringRef.h"
 
+// Forward declarations of classes
 class AST;
 class Expr;
 class Factor;
 class BinaryOp;
 class WithDecl;
 
+/// @brief Visitor class for the AST 
+/// @details This class is the base class for all visitors of the AST. It provides
+/// a visit method for each AST node.
 class ASTVisitor {
 public:
   virtual void visit(AST &){};
@@ -19,17 +24,24 @@ public:
   virtual void visit(WithDecl &) = 0;
 };
 
+/// @brief Abstract syntax tree class 
+/// @details This class is the base class for all AST nodes. It provides a virtual
+/// destructor and a virtual accept method for the visitor pattern.
 class AST {
 public:
   virtual ~AST() {}
   virtual void accept(ASTVisitor &V) = 0;
 };
 
+/// @brief Expression class 
+/// @details This class is the base class for all expressions in the AST.
 class Expr : public AST {
 public:
   Expr() {}
 };
 
+/// @brief Factor class 
+/// @details This class represents a factor in the AST.
 class Factor : public Expr {
 public:
   enum ValueKind { Ident, Number };
@@ -48,6 +60,8 @@ public:
   }
 };
 
+/// @brief Binary operation class 
+/// @details This class represents a binary operation in the AST.
 class BinaryOp : public Expr {
 public:
   enum Operator { Plus, Minus, Mul, Div };
@@ -68,6 +82,8 @@ public:
   }
 };
 
+/// @brief With declaration class 
+/// @details This class represents a with declaration in the AST.
 class WithDecl : public AST {
   using VarVector = llvm::SmallVector<llvm::StringRef, 8>;
   VarVector Vars;

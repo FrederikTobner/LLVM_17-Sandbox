@@ -1,7 +1,11 @@
 #pragma once
 
+// A wraooer for the StringMap class that provides set-like functionality
 #include "llvm/ADT/StringSet.h"
+// Implements a extremely fast bulk output stream that can only output to a stream
 #include "llvm/Support/raw_ostream.h"
+
+#include "AST.h"
 
 namespace {
 
@@ -24,8 +28,11 @@ class DeclCheck : public ASTVisitor {
   }
 
 public:
+  /// @brief Constructor for the DeclCheck class
   DeclCheck() : HasError(false) {}
 
+  /// @brief Check if an error has occurred
+  /// @return True if an error has occurred
   bool hasError() { return HasError; }
 
   /// @brief Visit a Factor node
